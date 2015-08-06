@@ -4,6 +4,8 @@
 #
 # Scans a Common Crawl WAT archive and extracts the links
 #
+# Input:
+#    - Contains URL 3 time (1. HTTP request header information, 2. response, 3. 
 # Output:
 #   
 # 
@@ -58,6 +60,9 @@ while (<>) {
         $line = readline(*STDIN);  # print($line); # Line 6  - ignore  
         $line = readline(*STDIN);  # print($line); # Line 7 - ignore   
         $jsonData = readline(*STDIN); # print($jsonData); # Line 8 - JSON-Data
+
+        # only continue if we are working on a "response" entry
+        if (index($jsonData, "WARC-Type":"response") == -1) { next; }
         
         $srcURI = $targetURI;
         $srcURI =~ s/WARC-Target-URI: //g;
