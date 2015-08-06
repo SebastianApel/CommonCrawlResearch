@@ -1,4 +1,14 @@
 
+#
+# mapper.pl
+#
+# Scans a Common Crawl WAT archive and extracts the links
+#
+# Output:
+#   
+# 
+# 
+
 use Digest::MD5 qw(md5 md5_hex md5_base64);
 
 sub get_TLD {
@@ -53,9 +63,10 @@ while (<>) {
         $srcURI =~ s/WARC-Target-URI: //g;
         $srcURI =~ s/\n//g;
         $srcURI =~ s/\x{d}//g;
-        $hash = md5_hex($srcURI);
-        print "$hash 1URL $srcURI\n";
+        # $hash = md5_hex($srcURI);             
         $tld = get_TLD($srcURI);
+        $hash = $tld;
+        print "$hash 1URL $tld $srcURI\n";
         #print "$hash $tld\n";
                 
         # Let's see if we can avoid to parse the JSON
@@ -63,7 +74,6 @@ while (<>) {
         $jsonData =~ s!}]!}]\n!g;   # add a line break after each "}]"
         $jsonData =~ s!},!},\n!g;   # add a line break after each "},"
         $jsonData =~ s!{!\n{!g;   # add a line break before each "{"
-        
         
                 
         # we are interested in the SCRIPT@/src entries
@@ -104,15 +114,15 @@ while (<>) {
                         $path =~ /"path":"(.*?)"/;
                         
                         $uTLD = get_TLD($url);
-                        if ($uTLD eq "googleapis.com") { $uTLD = "Google" }
-                        if ($uTLD eq "googletagmanager.com") { $uTLD = "Google" }
-                        if ($uTLD eq "google.com") { $uTLD = "Google" }
-                        if ($uTLD eq "googlesyndication.com") { $uTLD = "Google" }
-                        if ($uTLD eq "googleadservices.com") { $uTLD = "Google" }
-                        if ($uTLD eq "google-analytics.com") { $uTLD = "Google" }
-                        if ($uTLD eq "youtube.com") { $uTLD = "Google" }                        
-                        if ($uTLD eq "googletagservices.com") { $uTLD = "Google" }                        
-                        if ($uTLD eq "doubleclick.net") { $uTLD = "Google" }                                                
+                        if ($uTLD eq "googleapis.com") { $uTLD = "google.com" }
+                        if ($uTLD eq "googletagmanager.com") { $uTLD = "google.com" }
+                        if ($uTLD eq "google.com") { $uTLD = "google.com" }
+                        if ($uTLD eq "googlesyndication.com") { $uTLD = "google.com" }
+                        if ($uTLD eq "googleadservices.com") { $uTLD = "google.com" }
+                        if ($uTLD eq "google-analytics.com") { $uTLD = "google.com" }
+                        if ($uTLD eq "youtube.com") { $uTLD = "google.com" }                        
+                        if ($uTLD eq "googletagservices.com") { $uTLD = "google.com" }                        
+                        if ($uTLD eq "doubleclick.net") { $uTLD = "google.com" }                                                
                         
                         if ($uTLD eq "facebook.net") { $uTLD = "facebook.com" }                                                
                         

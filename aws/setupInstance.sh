@@ -11,3 +11,4 @@ unzip -o master
 rm master.zip
 mv CommonCrawlResearch-master/ CommonCrawlResearch
 sudo chmod -R a+rx CommonCrawlResearch # quick fix for permissions problems 
+
