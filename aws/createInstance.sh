@@ -9,6 +9,9 @@
 #
 #
 
+# Echo command lines executed
+set -v
+
 # Start instance
 aws ec2 run-instances --image-id ami-a8221fb5 --count 1 --instance-type t2.micro --key-name MyKeyPair --security-groups SecurityGroup1
 
