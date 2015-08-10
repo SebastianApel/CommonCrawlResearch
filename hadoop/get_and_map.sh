@@ -42,7 +42,7 @@ zcat $BASENAME |  perl $SCRIPTDIR/mapper.pl | uniq | gzip > mapper.result.txt.gz
 ### 3. Run Reducer script
 
 log "Start reducing of $BASENAME" 
-zcat mapper.result.txt.gz | awk 'BEGIN{IFS=" ";}{ print $1$2$3 "\t1" }' | sort |  perl $SCRIPTDIR/reducer.pl 
+zcat mapper.result.txt.gz | awk 'BEGIN{IFS=" ";}{ print $1$2$3 "\t1" }' | uniq | sort |  perl $SCRIPTDIR/reducer.pl 
 
 # get top 30 in human readable form
 # awk 'BEGIN{IFS="\t";}{print $2 " " $1}' | sort -n -r | head 10

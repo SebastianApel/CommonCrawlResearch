@@ -62,7 +62,7 @@ while (<>) {
         $jsonData = readline(*STDIN); # print($jsonData); # Line 8 - JSON-Data
 
         # only continue if we are working on a "response" entry
-        if (index($jsonData, "WARC-Type":"response") == -1) { next; }
+        if (index($jsonData, '"WARC-Type":"response"') == -1) { next; }
         
         $srcURI = $targetURI;
         $srcURI =~ s/WARC-Target-URI: //g;
